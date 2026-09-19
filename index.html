@@ -284,7 +284,11 @@
   .sync-row input[type="text"]{flex:1 1 200px}
   .sync-row .btn{flex:0 0 auto}
   .sync-ok{font-size:13.5px;color:var(--accent-ink);margin:0 0 12px;font-weight:500}
-  .sync-or{font-size:12px;color:var(--ink-3);margin:16px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  .step-head{
+    font-size:11px;color:var(--ink-3);margin:0 0 10px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.09em;
+  }
+  .second-device{margin-top:22px;padding-top:18px;border-top:1px solid var(--line-soft)}
   #sync-body label.mini{display:block;margin-bottom:4px}
   .key-warn{font-size:12px;color:var(--gold);margin:6px 0 0;line-height:1.5}
   .sync-help{margin-top:14px;font-size:13px;color:var(--ink-2)}
@@ -1286,13 +1290,8 @@
 
     } else {
       box.innerHTML =
-        '<p class="hint" style="margin-bottom:12px">Пока записи живут только в этом браузере. Подключи базу — и телефон с компьютером будут видеть одно и то же.</p>' +
-        '<label class="mini" for="sy-code">Код с другого устройства</label>' +
-        '<div class="sync-row">' +
-          '<input type="text" id="sy-code" placeholder="вставь код сюда" autocomplete="off">' +
-          '<button class="btn" type="button" id="sy-usecode">Применить</button>' +
-        '</div>' +
-        '<p class="sync-or">или подключить базу впервые</p>' +
+        '<p class="hint" style="margin-bottom:14px">Пока записи живут только в этом браузере. Подключи базу — и телефон с компьютером будут видеть одно и то же.</p>' +
+        '<p class="step-head">Первое устройство: подключить базу</p>' +
         '<label class="mini" for="sy-url">Ссылка на проект Supabase</label>' +
         '<input type="text" id="sy-url" placeholder="https://xxxxx.supabase.co" autocomplete="off">' +
         '<label class="mini" for="sy-key" style="margin-top:8px">Публикуемый ключ (Publishable key)</label>' +
@@ -1300,6 +1299,14 @@
         '<p class="key-warn">Нужен именно Publishable key. Ключ из раздела Secret keys сюда вставлять нельзя — он даёт полный доступ к базе.</p>' +
         '<div class="sync-row" style="margin-top:10px">' +
           '<button class="btn" type="button" id="sy-connect">Подключить</button>' +
+        '</div>' +
+        '<div class="second-device">' +
+          '<p class="step-head">Второе устройство: ввести код</p>' +
+          '<p class="hint" style="margin-bottom:8px">Код появится здесь же после подключения первого устройства. На телефоне вставь его сюда — заново вводить ключ не придётся.</p>' +
+          '<div class="sync-row">' +
+            '<input type="text" id="sy-code" placeholder="вставь код сюда" autocomplete="off">' +
+            '<button class="btn ghost" type="button" id="sy-usecode">Применить</button>' +
+          '</div>' +
         '</div>' +
         '<details class="sync-help">' +
           '<summary>Как завести базу — шесть шагов</summary>' +
