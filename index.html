@@ -286,6 +286,7 @@
   .sync-ok{font-size:13.5px;color:var(--accent-ink);margin:0 0 12px;font-weight:500}
   .sync-or{font-size:12px;color:var(--ink-3);margin:16px 0 10px;text-transform:uppercase;letter-spacing:.08em}
   #sync-body label.mini{display:block;margin-bottom:4px}
+  .key-warn{font-size:12px;color:var(--gold);margin:6px 0 0;line-height:1.5}
   .sync-help{margin-top:14px;font-size:13px;color:var(--ink-2)}
   .sync-help summary{cursor:pointer;color:var(--ink-3);font-size:12.5px}
   .sync-help ol{margin:10px 0 0;padding-left:20px;line-height:1.7}
@@ -702,6 +703,22 @@
             });
   }
 
+  /* Raw PostgREST errors say nothing useful to a person, so the common
+     three are translated into the next action to take. */
+  function explainError(status, text){
+    var t = String(text || "");
+    if(status === 404 || /does not exist|Could not find the table/i.test(t)){
+      return "таблица не создана — выполни SQL из инструкции ниже";
+    }
+    if(status === 401 || status === 403 || /Invalid API key|JWT/i.test(t)){
+      return "ключ не принят — скопируй Publishable key целиком";
+    }
+    if(/row-level security|42501/i.test(t)){
+      return "не создана политика доступа — выполни SQL целиком, до последней строки";
+    }
+    return status + " " + t.slice(0, 90);
+  }
+
   function failCloud(e){
     cloudState = "error";
     cloudNote = (e && e.message) ? e.message : String(e);
@@ -729,7 +746,7 @@
       body: JSON.stringify(row)
     }).then(function(r){
       if(!r.ok){
-        return r.text().then(function(t){ throw new Error(r.status + " " + t.slice(0, 140)); });
+        return r.text().then(function(t){ throw new Error(explainError(r.status, t)); });
       }
       cloudState = "ok"; cloudNote = ""; lastSyncAt = new Date();
       updateStoreLine();
@@ -743,7 +760,7 @@
     return api("tracker?space=eq." + encodeURIComponent(sync.space) + "&select=data,updated_at")
       .then(function(r){
         if(!r.ok){
-          return r.text().then(function(t){ throw new Error(r.status + " " + t.slice(0, 140)); });
+          return r.text().then(function(t){ throw new Error(explainError(r.status, t)); });
         }
         return r.json();
       })
@@ -1278,8 +1295,9 @@
         '<p class="sync-or">или подключить базу впервые</p>' +
         '<label class="mini" for="sy-url">Ссылка на проект Supabase</label>' +
         '<input type="text" id="sy-url" placeholder="https://xxxxx.supabase.co" autocomplete="off">' +
-        '<label class="mini" for="sy-key" style="margin-top:8px">Ключ anon public</label>' +
-        '<input type="text" id="sy-key" placeholder="eyJ..." autocomplete="off">' +
+        '<label class="mini" for="sy-key" style="margin-top:8px">Публикуемый ключ (Publishable key)</label>' +
+        '<input type="text" id="sy-key" placeholder="sb_publishable_..." autocomplete="off">' +
+        '<p class="key-warn">Нужен именно Publishable key. Ключ из раздела Secret keys сюда вставлять нельзя — он даёт полный доступ к базе.</p>' +
         '<div class="sync-row" style="margin-top:10px">' +
           '<button class="btn" type="button" id="sy-connect">Подключить</button>' +
         '</div>' +
@@ -1287,13 +1305,13 @@
           '<summary>Как завести базу — шесть шагов</summary>' +
           '<ol>' +
             '<li>Зарегистрируйся на supabase.com, карта не нужна.</li>' +
-            '<li>Нажми New project. Имя любое, пароль базы сохрани у себя.</li>' +
-            '<li>Слева открой SQL Editor и выполни это:' +
+            '<li>Нажми New project. Имя любое. Пароль базы сохрани у себя — здесь он не понадобится.</li>' +
+            '<li>Слева открой SQL Editor, вставь это и нажми Run:' +
               '<pre>create table if not exists tracker (\n  space text primary key,\n  data jsonb not null default \'{}\'::jsonb,\n  updated_at timestamptz not null default now()\n);\nalter table tracker enable row level security;\ncreate policy tracker_rw on tracker\n  for all to anon using (true) with check (true);</pre>' +
             '</li>' +
-            '<li>Открой Project Settings → API.</li>' +
-            '<li>Скопируй оттуда Project URL и ключ anon public в поля выше.</li>' +
-            '<li>Нажми «Подключить», затем перенеси код на телефон.</li>' +
+            '<li>Слева внизу Settings → API Keys. Скопируй кнопкой ключ из блока <b>Publishable key</b> (начинается с sb_publishable_). Блок Secret keys не трогай.</li>' +
+            '<li>Ссылка на проект — это https://<i>код</i>.supabase.co, где <i>код</i> виден в адресной строке после /project/. Он же лежит в Settings → Data API → Project URL.</li>' +
+            '<li>Вставь оба значения в поля выше, нажми «Подключить», затем перенеси код на телефон.</li>' +
           '</ol>' +
         '</details>';
 
