@@ -682,11 +682,15 @@
   /* ---------- supabase mirror ---------- */
   function api(path, opts){
     opts = opts || {};
+    /* Keys in the sb_publishable_ / sb_secret_ format are NOT JWTs. Supabase
+       is explicit that they go on apikey only: anything that tries to verify
+       one as a JWT fails, which reads back as "key not accepted". Legacy
+       eyJ... keys are JWTs and still want both headers. */
     var headers = {
       "apikey": sync.key,
-      "Authorization": "Bearer " + sync.key,
       "Content-Type": "application/json"
     };
+    if(/^eyJ/.test(String(sync.key))) headers["Authorization"] = "Bearer " + sync.key;
     if(opts.headers){
       Object.keys(opts.headers).forEach(function(h){ headers[h] = opts.headers[h]; });
     }
@@ -716,7 +720,7 @@
       return "таблица не создана — выполни SQL из инструкции ниже";
     }
     if(status === 401 || status === 403 || /Invalid API key|JWT/i.test(t)){
-      return "ключ не принят — скопируй Publishable key целиком";
+      return "ключ не принят — проверь, что скопирован Publishable key целиком";
     }
     if(/row-level security|42501/i.test(t)){
       return "не создана политика доступа — выполни SQL целиком, до последней строки";
@@ -751,7 +755,10 @@
       body: JSON.stringify(row)
     }).then(function(r){
       if(!r.ok){
-        return r.text().then(function(t){ throw new Error(explainError(r.status, t)); });
+        return r.text().then(function(t){
+          diag("ответ базы на запись: " + r.status + " " + t.slice(0, 160));
+          throw new Error(explainError(r.status, t));
+        });
       }
       cloudState = "ok"; cloudNote = ""; lastSyncAt = new Date();
       updateStoreLine();
@@ -765,7 +772,10 @@
     return api("tracker?space=eq." + encodeURIComponent(sync.space) + "&select=data,updated_at")
       .then(function(r){
         if(!r.ok){
-          return r.text().then(function(t){ throw new Error(explainError(r.status, t)); });
+          return r.text().then(function(t){
+            diag("ответ базы на чтение: " + r.status + " " + t.slice(0, 160));
+            throw new Error(explainError(r.status, t));
+          });
         }
         return r.json();
       })
