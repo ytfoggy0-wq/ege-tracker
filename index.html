@@ -315,6 +315,7 @@
     white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow-y:auto;
     background:var(--surface-2);border-radius:10px;padding:12px;
   }
+  .build-stamp{font-family:var(--mono);font-size:11px;color:var(--ink-3);opacity:.8}
   .note{font-size:12.5px;color:var(--ink-3);text-align:center;margin:0}
   .banner{
     border:1px solid var(--gold);background:var(--gold-soft);color:var(--ink);
@@ -493,7 +494,7 @@
     <div class="diag" id="diag">загрузка…</div>
   </details>
 
-  <p class="note">Записи хранятся в браузере этого устройства, а при подключённой базе — ещё и в ней.</p>
+  <p class="note">Записи хранятся в браузере этого устройства, а при подключённой базе — ещё и в ней.<br><span id="build-stamp" class="build-stamp"></span></p>
 </div>
 
 <script>
@@ -525,6 +526,31 @@
     if(el) el.textContent = diagLines.join("\n");
     try{ console.log("[трекер]", msg); }catch(e){}
   }
+  /* GitHub Pages lets a browser cache this page for ten minutes, so a fix can
+     sit on the server while the phone still shows an older copy. The page
+     therefore checks its own version and reloads through a fresh URL. */
+  var BUILD = "2026-09-19-1633";
+  (function checkForUpdate(){
+    var stamp = document.getElementById("build-stamp");
+    if(stamp) stamp.textContent = "версия " + BUILD;
+    if(!window.fetch) return;
+    fetch("version.txt?cb=" + Date.now(), {cache: "no-store"})
+      .then(function(r){ return r.ok ? r.text() : null; })
+      .then(function(t){
+        var latest = t && t.trim();
+        if(!latest || latest === BUILD) return;
+        var flag = "ege2028.upd." + latest;
+        try{
+          if(sessionStorage.getItem(flag)) return;   /* never loop */
+          sessionStorage.setItem(flag, "1");
+        }catch(e){}
+        diag("на сервере версия " + latest + " — обновляюсь");
+        /* a changed query string defeats the cached copy */
+        location.replace(location.pathname + "?v=" + encodeURIComponent(latest));
+      })
+      .catch(function(){});
+  })();
+
   function safeRender(){
     try{ render(); }
     catch(e){ diag("ОШИБКА отрисовки: " + ((e && e.message) || e)); }
