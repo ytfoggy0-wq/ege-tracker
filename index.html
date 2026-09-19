@@ -1,0 +1,1373 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F6B4F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ЕГЭ 2028">
+<meta name="description" content="Ежедневный трекер часов подготовки к ЕГЭ 2028.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ctext y=%27.9em%27 font-size=%2756%27%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    color-scheme:light dark;
+    padding-top:env(safe-area-inset-top, 0px);
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+  }
+  html,body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none !important}
+</style>
+<title>Подготовка к ЕГЭ 2028</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --bg:#F5F7F3;
+    --surface:#FFFFFF;
+    --surface-2:#ECEFE8;
+    --line:#DBDFD4;
+    --line-soft:#E7EAE2;
+    --ink:#191F1A;
+    --ink-2:#575F56;
+    --ink-3:#88907F;
+    --accent:#0F6B4F;
+    --accent-ink:#0B5741;
+    --accent-soft:#D9EADF;
+    --gold:#9A6B12;
+    --gold-soft:#F0E5C8;
+    --btn-ink:#FFFFFF;
+    --gold-ink:#FFFFFF;
+    --danger:#B4442F;
+    --h0:#E4E8DF; --h1:#C4DFCF; --h2:#8FC5AC; --h3:#4CA07C; --h4:#0F6B4F;
+    --shadow:0 1px 2px rgba(25,31,26,.05), 0 6px 20px -12px rgba(25,31,26,.18);
+    --radius:14px;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --ui:"Golos Text","Segoe UI",system-ui,-apple-system,sans-serif;
+    --display:"Bitter",Georgia,"Times New Roman",serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#101410;
+      --surface:#181D18;
+      --surface-2:#212721;
+      --line:#2D342D;
+      --line-soft:#242B24;
+      --ink:#E9EEE7;
+      --ink-2:#A5AFA2;
+      --ink-3:#79826F;
+      --accent:#54C795;
+      --accent-ink:#7EDCB1;
+      --accent-soft:#1B3729;
+      --gold:#D6A544;
+      --gold-soft:#39300F;
+      --btn-ink:#0B1A13;
+      --gold-ink:#1A1405;
+      --danger:#E88B76;
+      --h0:#212721; --h1:#1E3E30; --h2:#2B6A50; --h3:#3E9B73; --h4:#63D6A4;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px -12px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#101410;
+    --surface:#181D18;
+    --surface-2:#212721;
+    --line:#2D342D;
+    --line-soft:#242B24;
+    --ink:#E9EEE7;
+    --ink-2:#A5AFA2;
+    --ink-3:#79826F;
+    --accent:#54C795;
+    --accent-ink:#7EDCB1;
+    --accent-soft:#1B3729;
+    --gold:#D6A544;
+    --gold-soft:#39300F;
+    --btn-ink:#0B1A13;
+    --gold-ink:#1A1405;
+    --danger:#E88B76;
+    --h0:#212721; --h1:#1E3E30; --h2:#2B6A50; --h3:#3E9B73; --h4:#63D6A4;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 20px -12px rgba(0,0,0,.7);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--ui);
+    font-size:15px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:880px;
+    margin:0 auto;
+    padding-inline:16px;
+    padding-block:28px 64px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+
+  /* ---- header ---- */
+  .masthead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
+  .eyebrow{
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;margin:0 0 4px;
+  }
+  h1{
+    font-family:var(--display);font-weight:700;font-size:28px;line-height:1.15;
+    margin:0;text-wrap:balance;letter-spacing:-.01em;
+  }
+  .exam-note{font-size:13px;color:var(--ink-2);margin:6px 0 0}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .stat{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow);
+  }
+  .stat.lead{border-color:var(--accent);background:var(--accent-soft)}
+  .stat-label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .stat.lead .stat-label{color:var(--accent-ink)}
+  .stat-value{
+    font-family:var(--mono);font-weight:600;font-size:26px;line-height:1.1;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+  }
+  .stat.lead .stat-value{color:var(--accent-ink)}
+  .stat-unit{font-family:var(--ui);font-size:12px;font-weight:500;color:var(--ink-3);margin-left:4px}
+  .stat.lead .stat-unit{color:var(--accent-ink);opacity:.75}
+  .stat-sub{font-size:12px;color:var(--ink-2);margin-top:2px}
+
+  /* ---- generic block ---- */
+  .block{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;box-shadow:var(--shadow);
+  }
+  .block-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px}
+  h2{font-family:var(--display);font-weight:600;font-size:17px;margin:0;letter-spacing:-.01em}
+  .hint{font-size:12.5px;color:var(--ink-3);margin:0}
+
+  /* ---- today form ---- */
+  .today-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+  .date-field{display:flex;align-items:center;gap:8px}
+  label.mini{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  input[type="date"],select,input[type="text"],input[type="number"]{
+    font-family:var(--ui);font-size:14px;color:var(--ink);
+    background:var(--surface-2);border:1px solid var(--line);border-radius:9px;
+    padding:8px 10px;min-width:0;
+  }
+  input[type="date"]{font-family:var(--mono);font-size:13px}
+  .day-badge{
+    font-size:12px;font-weight:600;color:var(--accent-ink);background:var(--accent-soft);
+    border-radius:99px;padding:3px 10px;
+  }
+
+  .rows{display:flex;flex-direction:column;gap:8px}
+  .row{
+    display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+    padding:9px 12px;background:var(--surface-2);border-radius:11px;
+  }
+  .row-name{font-weight:500;font-size:14.5px}
+  .row-name span{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400}
+  .stepper{display:flex;align-items:center;gap:6px}
+  .stepper button{
+    width:30px;height:30px;border-radius:8px;border:1px solid var(--line);
+    background:var(--surface);color:var(--ink-2);font-size:16px;line-height:1;cursor:pointer;
+    font-family:var(--ui);
+  }
+  .stepper button:hover{border-color:var(--accent);color:var(--accent-ink)}
+  .stepper input{
+    width:64px;text-align:center;font-family:var(--mono);font-variant-numeric:tabular-nums;
+    font-size:15px;font-weight:600;background:var(--surface);
+  }
+  .stepper .u{font-size:12px;color:var(--ink-3);width:14px}
+
+  .form-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}
+  .total-line{font-size:13.5px;color:var(--ink-2)}
+  .total-line b{font-family:var(--mono);font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .btn{
+    font-family:var(--ui);font-size:14px;font-weight:600;cursor:pointer;
+    background:var(--accent);color:var(--btn-ink);border:1px solid var(--accent);
+    border-radius:10px;padding:9px 18px;
+  }
+  .btn:hover{filter:brightness(1.06)}
+  .btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+  .btn.ghost{background:transparent;color:var(--ink-2);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent-ink)}
+  .btn.gold{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
+  .store-state{font-size:12px;color:var(--ink-3)}
+  .store-state.ok{color:var(--accent-ink)}
+  .store-state.bad{color:var(--danger);font-weight:600}
+  .saved{font-size:13px;color:var(--accent-ink);font-weight:600;opacity:0;transition:opacity .25s}
+  .saved.on{opacity:1}
+
+  /* ---- heatmap ---- */
+  .hm-scroll{overflow-x:auto;padding-bottom:6px}
+  .hm{display:flex;gap:8px;min-width:min-content}
+  .hm-days{display:flex;flex-direction:column;gap:3px;padding-top:17px}
+  .hm-days div{height:11px;font-size:9.5px;line-height:11px;color:var(--ink-3);width:20px}
+  .hm-body{display:flex;flex-direction:column;gap:3px}
+  .hm-labels{display:flex;gap:3px;height:14px;position:relative}
+  .hm-labels div{width:11px;flex:0 0 11px;font-size:10px;color:var(--ink-3);white-space:nowrap;overflow:visible}
+  .hm-cols{display:flex;gap:3px}
+  .hm-col{display:flex;flex-direction:column;gap:3px}
+  .cell{
+    width:11px;height:11px;border-radius:3px;background:var(--h0);
+    border:1px solid transparent;cursor:pointer;padding:0;
+  }
+  .cell.void{visibility:hidden;cursor:default}
+  .cell.l1{background:var(--h1)} .cell.l2{background:var(--h2)}
+  .cell.l3{background:var(--h3)} .cell.l4{background:var(--h4)}
+  .cell.today{border-color:var(--gold)}
+  .cell:hover:not(.void){outline:1.5px solid var(--ink-2);outline-offset:1px}
+  .hm-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;font-size:12px;color:var(--ink-3)}
+  .legend{display:flex;align-items:center;gap:5px}
+  .legend .cell{cursor:default}
+
+  /* ---- subject totals ---- */
+  .subj-list{display:flex;flex-direction:column;gap:12px}
+  .subj{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:baseline}
+  .subj-bar{grid-column:1/-1;height:7px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+  .subj-bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+  .subj-num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:15px}
+  .subj-num small{font-family:var(--ui);font-weight:400;color:var(--ink-3);font-size:12px;margin-left:5px}
+
+  /* ---- recent days ---- */
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  .tbl-scroll{overflow-x:auto}
+  th{
+    text-align:right;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;padding:0 8px 8px;white-space:nowrap;
+  }
+  th:first-child{text-align:left}
+  td{padding:7px 8px;border-top:1px solid var(--line-soft);text-align:right;
+     font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13.5px}
+  td:first-child{text-align:left;font-family:var(--ui);white-space:nowrap}
+  tr.empty td{color:var(--ink-3)}
+  tr.is-today td:first-child{font-weight:600;color:var(--accent-ink)}
+  td.tot{font-weight:600}
+  tbody tr{cursor:pointer}
+  tbody tr:hover td{background:var(--surface-2)}
+  .dow{color:var(--ink-3);font-size:12px;margin-left:5px}
+
+  /* ---- mocks ---- */
+  .mock-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+  .mock-card{
+    border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface-2);
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .mock-card h3{font-size:12px;margin:0;font-weight:600;color:var(--ink-2);font-family:var(--ui)}
+  .mock-score{font-family:var(--mono);font-weight:600;font-size:24px;font-variant-numeric:tabular-nums;line-height:1}
+  .mock-score.none{font-size:15px;color:var(--ink-3);font-weight:400;font-family:var(--ui)}
+  .delta{font-size:12px;font-weight:600;font-family:var(--mono)}
+  .delta.up{color:var(--accent-ink)} .delta.down{color:var(--danger)} .delta.flat{color:var(--ink-3)}
+  .mock-form{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:14px}
+  .ff{display:flex;flex-direction:column;gap:4px}
+  .ff input[type="number"]{width:86px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .ff.grow{flex:1 1 150px}
+  .ff.grow input{width:100%}
+  .mock-log{display:flex;flex-direction:column;gap:0}
+  .mock-row{
+    display:flex;align-items:center;gap:10px;padding:9px 2px;border-top:1px solid var(--line-soft);
+    font-size:14px;
+  }
+  .mock-row .d{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);width:74px;flex:0 0 74px}
+  .mock-row .s{flex:1 1 auto;min-width:0}
+  .mock-row .s em{font-style:normal;display:block;font-size:12px;color:var(--ink-3);overflow-wrap:anywhere}
+  .mock-row .v{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
+  .kill{background:none;border:none;color:var(--ink-3);cursor:pointer;font-size:16px;line-height:1;padding:2px 4px;border-radius:6px}
+  .kill:hover{color:var(--danger);background:var(--surface-2)}
+  .spark{display:block;width:100%;height:26px}
+
+  #sync-body input[type="text"]{width:100%;display:block}
+  .sync-row{display:flex;gap:8px;align-items:center;margin:4px 0 2px;flex-wrap:wrap}
+  .sync-row input[type="text"]{flex:1 1 200px}
+  .sync-row .btn{flex:0 0 auto}
+  .sync-ok{font-size:13.5px;color:var(--accent-ink);margin:0 0 12px;font-weight:500}
+  .sync-or{font-size:12px;color:var(--ink-3);margin:16px 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  #sync-body label.mini{display:block;margin-bottom:4px}
+  .sync-help{margin-top:14px;font-size:13px;color:var(--ink-2)}
+  .sync-help summary{cursor:pointer;color:var(--ink-3);font-size:12.5px}
+  .sync-help ol{margin:10px 0 0;padding-left:20px;line-height:1.7}
+  .sync-help pre{
+    font-family:var(--mono);font-size:11px;line-height:1.6;background:var(--surface-2);
+    border-radius:8px;padding:10px;overflow-x:auto;margin:8px 0;white-space:pre;
+  }
+  .backup-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line-soft)}
+  .file-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center}
+  .file-btn input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+  .diag-wrap{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 18px;box-shadow:var(--shadow);
+  }
+  .diag-wrap summary{
+    cursor:pointer;font-size:13px;color:var(--ink-3);font-weight:500;
+  }
+  .diag-wrap summary:hover{color:var(--ink-2)}
+  .diag-wrap[open] summary{margin-bottom:12px}
+  .diag{
+    font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--ink-2);
+    white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow-y:auto;
+    background:var(--surface-2);border-radius:10px;padding:12px;
+  }
+  .note{font-size:12.5px;color:var(--ink-3);text-align:center;margin:0}
+  .banner{
+    border:1px solid var(--gold);background:var(--gold-soft);color:var(--ink);
+    border-radius:11px;padding:10px 14px;font-size:13.5px;
+  }
+  .empty-state{font-size:13.5px;color:var(--ink-3);padding:6px 0}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+  @media (max-width:560px){
+    h1{font-size:23px}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat:first-child{grid-column:1/-1}
+    .stat-value{font-size:23px}
+    .mock-cards{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:6px}
+    .stepper{justify-content:flex-start}
+    .wrap{padding-block:20px 48px}
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Информатика · Профильная математика · Русский</p>
+      <h1>Подготовка к ЕГЭ 2028</h1>
+      <p class="exam-note">Старт — 18 сентября 2026. Экзамены — конец мая 2028 (считаю до 29 мая).</p>
+    </div>
+  </header>
+
+  <section class="stats">
+    <div class="stat lead">
+      <span class="stat-label">До экзамена</span>
+      <span class="stat-value" id="s-days">—</span>
+      <span class="stat-sub" id="s-days-sub">&nbsp;</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Всего часов</span>
+      <span class="stat-value" id="s-total">0<span class="stat-unit">ч</span></span>
+      <span class="stat-sub" id="s-total-sub">пока ничего не записано</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">В среднем в день</span>
+      <span class="stat-value" id="s-avg">0,0<span class="stat-unit">ч</span></span>
+      <span class="stat-sub" id="s-avg-sub">&nbsp;</span>
+    </div>
+  </section>
+
+  <div class="banner" id="offline-banner" hidden>
+    <b>Сохранение недоступно в этом окне.</b> Страница открыта без доступа к хранилищу — всё, что впишешь здесь, пропадёт. Открой трекер по его ссылке на claude.ai (или в галерее артефактов) — там записи сохраняются.
+  </div>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Сколько занимался</h2>
+      <p class="hint">Можно менять дату и править прошлые дни</p>
+    </div>
+
+    <div class="today-top">
+      <div class="date-field">
+        <label class="mini" for="in-date">Дата</label>
+        <input type="date" id="in-date">
+      </div>
+      <span class="day-badge" id="day-badge">сегодня</span>
+    </div>
+
+    <div class="rows" id="input-rows"></div>
+
+    <div class="form-foot">
+      <p class="total-line">За этот день: <b id="form-total">0</b> ч</p>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="store-state" id="store-state">проверяю хранилище…</span>
+        <span class="saved" id="saved-flag">Сохранено</span>
+        <button class="btn ghost" id="btn-clear" type="button">Обнулить</button>
+        <button class="btn" id="btn-save" type="button">Сохранить день</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Все 619 дней</h2>
+      <p class="hint">Один квадрат — один день. Нажми, чтобы открыть его в форме.</p>
+    </div>
+    <div class="hm-scroll">
+      <div class="hm">
+        <div class="hm-days"><div>Пн</div><div></div><div>Ср</div><div></div><div>Пт</div><div></div><div>Вс</div></div>
+        <div class="hm-body">
+          <div class="hm-labels" id="hm-labels"></div>
+          <div class="hm-cols" id="hm-cols"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hm-foot">
+      <span id="streak-line">Серия: 0 дней подряд</span>
+      <span class="legend">
+        меньше
+        <span class="cell"></span><span class="cell l1"></span><span class="cell l2"></span><span class="cell l3"></span><span class="cell l4"></span>
+        больше
+      </span>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>По предметам</h2>
+      <p class="hint">Видно, какой предмет проседает</p>
+    </div>
+    <div class="subj-list" id="subj-list"></div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Последние дни</h2>
+      <p class="hint">Строка кликается — откроется в форме</p>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>День</th><th>Инф</th><th>Мат</th><th>Рус</th><th>Всего</th></tr>
+        </thead>
+        <tbody id="recent-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Пробники</h2>
+      <p class="hint">Вторичные баллы, 0–100. Добавляй когда написал — раз в неделю, раз в месяц, как пойдёт.</p>
+    </div>
+
+    <div class="mock-cards" id="mock-cards"></div>
+
+    <div class="mock-form">
+      <div class="ff">
+        <label class="mini" for="m-date">Дата</label>
+        <input type="date" id="m-date">
+      </div>
+      <div class="ff">
+        <label class="mini" for="m-subj">Предмет</label>
+        <select id="m-subj"></select>
+      </div>
+      <div class="ff">
+        <label class="mini" for="m-score">Баллы</label>
+        <input type="number" id="m-score" min="0" max="100" step="1" inputmode="numeric" placeholder="0–100">
+      </div>
+      <div class="ff grow">
+        <label class="mini" for="m-note">Заметка</label>
+        <input type="text" id="m-note" maxlength="90" placeholder="что провалил, что далось">
+      </div>
+      <button class="btn gold" id="m-add" type="button">Добавить</button>
+    </div>
+
+    <div class="mock-log" id="mock-log"></div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Синхронизация</h2>
+      <p class="hint">Чтобы телефон и компьютер видели одни записи</p>
+    </div>
+    <div id="sync-body"></div>
+
+    <div class="backup-row">
+      <button class="btn ghost" type="button" id="bk-save">Скачать копию</button>
+      <label class="btn ghost file-btn">Загрузить копию<input type="file" id="bk-load" accept="application/json,.json"></label>
+    </div>
+  </section>
+
+  <details class="diag-wrap">
+    <summary>Диагностика — что происходит при сохранении</summary>
+    <div class="diag" id="diag">загрузка…</div>
+  </details>
+
+  <p class="note">Записи хранятся в браузере этого устройства, а при подключённой базе — ещё и в ней.</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var START = "2026-09-18";
+  var EXAM  = "2028-05-29";
+  var SUBJECTS = [
+    {k:"inf", name:"Информатика",           sub:"КЕГЭ, задачи + программирование", short:"Инф"},
+    {k:"mat", name:"Математика профильная", sub:"первая часть + 13–19",            short:"Мат"},
+    {k:"rus", name:"Русский язык",          sub:"тесты + сочинение",               short:"Рус"}
+  ];
+  var MON = ["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"];
+  var DOW = ["вс","пн","вт","ср","чт","пт","сб"];
+
+  var state = { months:{}, mocks:[], db:null, writable:true };
+
+  /* ---------- visible log ----------
+     The save path failed silently more than once, so each step reports
+     itself on the page instead of only into the console. */
+  var diagLines = [];
+  function diag(msg){
+    var t = new Date();
+    var two = function(n){ return (n < 10 ? "0" : "") + n; };
+    diagLines.push(two(t.getHours()) + ":" + two(t.getMinutes()) + ":" + two(t.getSeconds()) + "  " + msg);
+    if(diagLines.length > 16) diagLines.shift();
+    var el = document.getElementById("diag");
+    if(el) el.textContent = diagLines.join("\n");
+    try{ console.log("[трекер]", msg); }catch(e){}
+  }
+  function safeRender(){
+    try{ render(); }
+    catch(e){ diag("ОШИБКА отрисовки: " + ((e && e.message) || e)); }
+  }
+
+  /* ---------- dates ---------- */
+  function parse(s){ var p=s.split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+  function ymd(d){
+    var m=d.getMonth()+1, dd=d.getDate();
+    return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(dd<10?"0":"")+dd;
+  }
+  function addDays(d,n){ var x=new Date(d.getTime()); x.setDate(x.getDate()+n); return x; }
+  function daysBetween(a,b){ return Math.round((b-a)/86400000); }
+  function todayYmd(){ var n=new Date(); return ymd(new Date(n.getFullYear(),n.getMonth(),n.getDate())); }
+  function mk(s){ return s.slice(0,7); }
+  function dk(s){ return s.slice(8,10); }
+  function human(s){ var d=parse(s); return d.getDate()+" "+MON[d.getMonth()]; }
+  function humanFull(s){ var d=parse(s); return d.getDate()+" "+MON[d.getMonth()]+" "+d.getFullYear(); }
+
+  function plural(n, one, few, many){
+    var a=Math.abs(n)%100, b=a%10;
+    if(a>10&&a<20) return many;
+    if(b>1&&b<5) return few;
+    if(b===1) return one;
+    return many;
+  }
+  function fmt(n){
+    if(!n) return "0";
+    return n.toLocaleString("ru-RU",{maximumFractionDigits:1});
+  }
+  function fmt1(n){ return n.toLocaleString("ru-RU",{minimumFractionDigits:1,maximumFractionDigits:1}); }
+
+  /* ---------- data access ----------
+     Snapshots from the store hand back FROZEN objects. Keeping one and then
+     writing a new day into it throws "object is not extensible" and the save
+     dies before it reaches the server, so every snapshot body is copied. */
+  function cloneMonth(src){
+    var out = {};
+    if(!src) return out;
+    Object.keys(src).forEach(function(d){
+      var v = src[d] || {};
+      out[d] = {inf: +v.inf || 0, mat: +v.mat || 0, rus: +v.rus || 0};
+    });
+    return out;
+  }
+  function cloneMock(m){
+    m = m || {};
+    return {
+      id: String(m.id == null ? "" : m.id),
+      date: String(m.date == null ? "" : m.date),
+      subject: String(m.subject == null ? "" : m.subject),
+      score: +m.score || 0,
+      note: String(m.note == null ? "" : m.note)
+    };
+  }
+
+  function getDay(s){
+    var m = state.months[mk(s)];
+    var v = m && m[dk(s)];
+    return {
+      inf: v && +v.inf || 0,
+      mat: v && +v.mat || 0,
+      rus: v && +v.rus || 0
+    };
+  }
+  function dayTotal(s){ var v=getDay(s); return v.inf+v.mat+v.rus; }
+
+  function setDay(s, vals){
+    var key = mk(s);
+    var month = state.months[key];
+    if(!month || !Object.isExtensible(month)) state.months[key] = cloneMonth(month);
+    var t = (+vals.inf||0)+(+vals.mat||0)+(+vals.rus||0);
+    if(t === 0) delete state.months[key][dk(s)];
+    else state.months[key][dk(s)] = {inf:+vals.inf||0, mat:+vals.mat||0, rus:+vals.rus||0};
+    return key;
+  }
+
+  /* ---------- storage ----------
+     This browser holds the record. Supabase, once configured, mirrors it so
+     another device sees the same data. Everything works without it. */
+  var LOCAL_KEY = "ege2028.state.v1";
+  var CONF_KEY  = "ege2028.sync.v1";
+  var sync = readConf();
+  var cloudState = "idle";      /* idle | syncing | ok | error */
+  var cloudNote = "";
+  var lastSyncAt = null;
+  var pushTimer = null;
+
+  function readConf(){
+    try{
+      var o = JSON.parse(localStorage.getItem(CONF_KEY) || "null");
+      if(o && o.url && o.key && o.space) return o;
+    }catch(e){}
+    return null;
+  }
+  function writeConf(o){
+    try{
+      if(o) localStorage.setItem(CONF_KEY, JSON.stringify(o));
+      else localStorage.removeItem(CONF_KEY);
+    }catch(e){}
+    sync = o;
+  }
+
+  function cloneAllMonths(src){
+    var out = {};
+    if(src) Object.keys(src).forEach(function(k){ out[k] = cloneMonth(src[k]); });
+    return out;
+  }
+
+  function loadLocal(){
+    try{
+      var o = JSON.parse(localStorage.getItem(LOCAL_KEY) || "null");
+      if(!o) return;
+      state.months = cloneAllMonths(o.months);
+      state.mocks = Array.isArray(o.mocks) ? o.mocks.map(cloneMock) : [];
+      state.updatedAt = +o.updatedAt || 0;
+      diag("локальные данные загружены");
+    }catch(e){
+      diag("ОШИБКА чтения локальных данных: " + ((e && e.message) || e));
+    }
+  }
+
+  function saveLocal(){
+    try{
+      localStorage.setItem(LOCAL_KEY, JSON.stringify({
+        months: state.months, mocks: state.mocks, updatedAt: state.updatedAt
+      }));
+      showBanner(null);
+      return true;
+    }catch(e){
+      diag("ОШИБКА локального сохранения: " + ((e && e.message) || e));
+      showBanner("Браузер не даёт сохранить данные. Скорее всего это режим инкогнито или запрет на хранение сайтов — в нём записи не сохранятся.");
+      return false;
+    }
+  }
+
+  /* every change goes through here: browser first, cloud after */
+  function persist(){
+    state.updatedAt = Date.now();
+    var ok = saveLocal();
+    safeRender();
+    updateStoreLine();
+    pushCloud();
+    return ok;
+  }
+
+  function showBanner(msg){
+    var b = document.getElementById("offline-banner");
+    if(!b) return;
+    if(msg){ b.textContent = msg; b.hidden = false; }
+    else b.hidden = true;
+  }
+
+  /* ---------- supabase mirror ---------- */
+  function api(path, opts){
+    opts = opts || {};
+    var headers = {
+      "apikey": sync.key,
+      "Authorization": "Bearer " + sync.key,
+      "Content-Type": "application/json"
+    };
+    if(opts.headers){
+      Object.keys(opts.headers).forEach(function(h){ headers[h] = opts.headers[h]; });
+    }
+    /* a request that never settles would leave the status stuck on
+       "syncing" forever, so every call gets a deadline */
+    var ctrl = (typeof AbortController !== "undefined") ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 12000) : null;
+    return fetch(String(sync.url).replace(/\/+$/, "") + "/rest/v1/" + path, {
+      method: opts.method || "GET",
+      headers: headers,
+      body: opts.body,
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function(r){ if(timer) clearTimeout(timer); return r; },
+            function(e){
+              if(timer) clearTimeout(timer);
+              throw (e && e.name === "AbortError")
+                ? new Error("база не ответила за 12 секунд")
+                : new Error("нет связи с базой — проверь ссылку и интернет");
+            });
+  }
+
+  function failCloud(e){
+    cloudState = "error";
+    cloudNote = (e && e.message) ? e.message : String(e);
+    updateStoreLine();
+    diag("ОШИБКА облака: " + cloudNote);
+  }
+
+  function pushCloud(){
+    if(!sync) return;
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(doPush, 400);   /* coalesce quick edits */
+  }
+
+  function doPush(){
+    if(!sync) return;
+    cloudState = "syncing"; updateStoreLine();
+    var row = {
+      space: sync.space,
+      data: { months: state.months, mocks: state.mocks },
+      updated_at: new Date(state.updatedAt || Date.now()).toISOString()
+    };
+    api("tracker?on_conflict=space", {
+      method: "POST",
+      headers: {"Prefer": "resolution=merge-duplicates,return=minimal"},
+      body: JSON.stringify(row)
+    }).then(function(r){
+      if(!r.ok){
+        return r.text().then(function(t){ throw new Error(r.status + " " + t.slice(0, 140)); });
+      }
+      cloudState = "ok"; cloudNote = ""; lastSyncAt = new Date();
+      updateStoreLine();
+      diag("облако: записано");
+    }).catch(failCloud);
+  }
+
+  function pullCloud(){
+    if(!sync) return Promise.resolve(false);
+    cloudState = "syncing"; updateStoreLine();
+    return api("tracker?space=eq." + encodeURIComponent(sync.space) + "&select=data,updated_at")
+      .then(function(r){
+        if(!r.ok){
+          return r.text().then(function(t){ throw new Error(r.status + " " + t.slice(0, 140)); });
+        }
+        return r.json();
+      })
+      .then(function(rows){
+        cloudState = "ok"; cloudNote = ""; lastSyncAt = new Date();
+        if(!rows || !rows.length){
+          diag("облако: пока пусто, отправляю своё");
+          updateStoreLine();
+          doPush();
+          return false;
+        }
+        var remote = rows[0];
+        var changed = mergeRemote(remote.data || {}, Date.parse(remote.updated_at) || 0);
+        diag("облако: получено, " + (changed ? "данные обновлены" : "различий нет"));
+        if(changed){
+          saveLocal();
+          if(!formDirty) loadIntoForm(elDate.value || todayYmd());
+          safeRender();
+        }
+        updateStoreLine();
+        return changed;
+      })
+      .catch(function(e){ failCloud(e); return false; });
+  }
+
+  /* Union of both sides: a day only one device knows about is kept, and a day
+     both know about takes the version from whichever side was written last.
+     Additions therefore never disappear. */
+  function mergeRemote(remote, remoteStamp){
+    var rMonths = (remote && remote.months) || {};
+    var remoteWins = remoteStamp > (state.updatedAt || 0);
+    var changed = false;
+
+    Object.keys(rMonths).forEach(function(key){
+      var rm = rMonths[key] || {};
+      if(!state.months[key] || !Object.isExtensible(state.months[key])){
+        state.months[key] = cloneMonth(state.months[key]);
+      }
+      var lm = state.months[key];
+      Object.keys(rm).forEach(function(d){
+        var rv = rm[d] || {};
+        var norm = {inf: +rv.inf || 0, mat: +rv.mat || 0, rus: +rv.rus || 0};
+        var lv = lm[d];
+        if(!lv){ lm[d] = norm; changed = true; return; }
+        if(remoteWins && (lv.inf !== norm.inf || lv.mat !== norm.mat || lv.rus !== norm.rus)){
+          lm[d] = norm; changed = true;
+        }
+      });
+    });
+
+    var seen = {};
+    state.mocks.forEach(function(m){ seen[m.id] = true; });
+    ((remote && remote.mocks) || []).forEach(function(m){
+      if(m && m.id && !seen[m.id]){ state.mocks.push(cloneMock(m)); changed = true; }
+    });
+
+    if(remoteStamp > (state.updatedAt || 0)) state.updatedAt = remoteStamp;
+    return changed;
+  }
+
+  /* ---------- today form ---------- */
+  var elDate   = document.getElementById("in-date");
+  var elRows   = document.getElementById("input-rows");
+  var elBadge  = document.getElementById("day-badge");
+  var elFTotal = document.getElementById("form-total");
+  var elSaved  = document.getElementById("saved-flag");
+  var elStore  = document.getElementById("store-state");
+  var formDirty = false;
+
+  SUBJECTS.forEach(function(s){
+    var row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML =
+      '<div class="row-name">'+s.name+'<span>'+s.sub+'</span></div>'+
+      '<div class="stepper">'+
+        '<button type="button" data-step="-0.5" data-k="'+s.k+'" aria-label="минус полчаса, '+s.name+'">−</button>'+
+        '<input type="text" id="in-'+s.k+'" inputmode="decimal" autocomplete="off" value="0" aria-label="Часы, '+s.name+'">'+
+        '<button type="button" data-step="0.5" data-k="'+s.k+'" aria-label="плюс полчаса, '+s.name+'">+</button>'+
+        '<span class="u">ч</span>'+
+      '</div>';
+    elRows.appendChild(row);
+  });
+
+  /* Accepts "2", "2.5" and "2,5". A number input rejects the comma on some
+     locales and hands back an empty string, which silently became 0. */
+  function parseHours(raw){
+    var t = String(raw == null ? "" : raw).replace(/\s/g, "").replace(",", ".");
+    if(!t) return 0;
+    var v = parseFloat(t);
+    if(isNaN(v) || v < 0) return 0;
+    return Math.min(v, 24);
+  }
+  function showHours(v){ return String(v).replace(".", ","); }
+
+  function formVals(){
+    var o = {};
+    SUBJECTS.forEach(function(s){
+      o[s.k] = parseHours(document.getElementById("in-"+s.k).value);
+    });
+    return o;
+  }
+  function formTotal(){ var v=formVals(); return v.inf+v.mat+v.rus; }
+  function refreshFormTotal(){ elFTotal.textContent = fmt(formTotal()); }
+
+  function loadIntoForm(s){
+    formDirty = false;
+    elDate.value = s;
+    var v = getDay(s);
+    SUBJECTS.forEach(function(x){ document.getElementById("in-"+x.k).value = showHours(v[x.k] || 0); });
+    var t = todayYmd();
+    var diff = daysBetween(parse(t), parse(s));
+    elBadge.textContent = diff === 0 ? "сегодня" : (diff === -1 ? "вчера" : humanFull(s));
+    refreshFormTotal();
+  }
+
+  elRows.addEventListener("click", function(e){
+    var b = e.target.closest("button[data-step]");
+    if(!b) return;
+    var inp = document.getElementById("in-"+b.getAttribute("data-k"));
+    var v = parseHours(inp.value);
+    v = Math.max(0, Math.min(24, v + parseFloat(b.getAttribute("data-step"))));
+    inp.value = showHours(v);
+    formDirty = true;
+    refreshFormTotal();
+  });
+  elRows.addEventListener("input", function(){ formDirty = true; refreshFormTotal(); });
+  elDate.addEventListener("change", function(){
+    if(!elDate.value) return;
+    loadIntoForm(elDate.value);
+  });
+
+  function hhmm(d){
+    return d.toLocaleTimeString("ru-RU", {hour: "2-digit", minute: "2-digit"});
+  }
+
+  function updateStoreLine(){
+    var txt, cls = "";
+    if(!sync){
+      txt = "сохранено в браузере · синхронизация не настроена";
+    } else if(cloudState === "syncing"){
+      txt = "синхронизирую…";
+    } else if(cloudState === "ok"){
+      txt = "синхронизировано" + (lastSyncAt ? " в " + hhmm(lastSyncAt) : "");
+      cls = "ok";
+    } else if(cloudState === "error"){
+      txt = "синхронизация не прошла: " + cloudNote.slice(0, 70);
+      cls = "bad";
+    } else {
+      txt = "сохранено в браузере";
+    }
+    elStore.textContent = txt;
+    elStore.className = "store-state" + (cls ? " " + cls : "");
+  }
+
+  function flashSaved(ok, hours){
+    var h = (hours === undefined) ? null : hours;
+    elSaved.textContent = ok
+      ? ("Сохранено" + (h === null ? "" : ": " + fmt(h) + " ч"))
+      : ("Пока только в браузере" + (h === null ? "" : ": " + fmt(h) + " ч"));
+    elSaved.style.color = ok ? "" : "var(--danger)";
+    elSaved.classList.add("on");
+    setTimeout(function(){ elSaved.classList.remove("on"); }, 1800);
+  }
+
+  document.getElementById("btn-save").addEventListener("click", function(){
+    try{
+      var s = elDate.value || todayYmd();
+      var vals = formVals();
+      var hours = vals.inf + vals.mat + vals.rus;
+      diag("клик: " + s + " → " + vals.inf + "/" + vals.mat + "/" + vals.rus + " = " + hours + " ч");
+
+      setDay(s, vals);
+      formDirty = false;
+      var ok = persist();
+      flashSaved(ok, hours);
+    }catch(e){
+      diag("ОШИБКА клика: " + ((e && e.message) || e));
+      flashSaved(false);
+    }
+  });
+  document.getElementById("btn-clear").addEventListener("click", function(){
+    SUBJECTS.forEach(function(x){ document.getElementById("in-"+x.k).value = 0; });
+    formDirty = true;
+    refreshFormTotal();
+  });
+
+  /* ---------- heatmap ---------- */
+  var startD = parse(START), examD = parse(EXAM);
+  var TOTAL_DAYS = daysBetween(startD, examD) + 1;
+  var gridStart = addDays(startD, -((startD.getDay() + 6) % 7)); // back to Monday
+  var weeks = Math.ceil((daysBetween(gridStart, examD) + 1) / 7);
+  var cellMap = {};
+
+  (function buildHeatmap(){
+    var cols = document.getElementById("hm-cols");
+    var labels = document.getElementById("hm-labels");
+    var lastMonth = -1;
+    for(var w = 0; w < weeks; w++){
+      var col = document.createElement("div");
+      col.className = "hm-col";
+      var labelText = "";
+      for(var d = 0; d < 7; d++){
+        var day = addDays(gridStart, w*7 + d);
+        var key = ymd(day);
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "cell";
+        if(key < START || key > EXAM){
+          btn.className += " void";
+          btn.tabIndex = -1;
+        } else {
+          btn.setAttribute("data-d", key);
+          cellMap[key] = btn;
+          if(d === 0 && day.getMonth() !== lastMonth){
+            lastMonth = day.getMonth();
+            labelText = MON[day.getMonth()] + (day.getMonth() === 0 ? " " + String(day.getFullYear()).slice(2) : "");
+          }
+        }
+        col.appendChild(btn);
+      }
+      cols.appendChild(col);
+      var lab = document.createElement("div");
+      lab.textContent = labelText;
+      labels.appendChild(lab);
+    }
+    cols.addEventListener("click", function(e){
+      var c = e.target.closest(".cell[data-d]");
+      if(!c) return;
+      loadIntoForm(c.getAttribute("data-d"));
+      document.getElementById("in-date").scrollIntoView({behavior:"smooth", block:"center"});
+    });
+  })();
+
+  function level(h){
+    if(h <= 0) return "";
+    if(h <= 1) return " l1";
+    if(h <= 2) return " l2";
+    if(h <= 4) return " l3";
+    return " l4";
+  }
+
+  /* ---------- mocks ---------- */
+  var mSubj = document.getElementById("m-subj");
+  SUBJECTS.forEach(function(s){
+    var o = document.createElement("option");
+    o.value = s.k; o.textContent = s.name;
+    mSubj.appendChild(o);
+  });
+
+  document.getElementById("m-add").addEventListener("click", function(){
+    var date = document.getElementById("m-date").value || todayYmd();
+    var score = parseFloat(document.getElementById("m-score").value);
+    if(isNaN(score)){ document.getElementById("m-score").focus(); return; }
+    score = Math.max(0, Math.min(100, Math.round(score)));
+    var entry = {
+      id: String(Date.now()) + Math.random().toString(36).slice(2,6),
+      date: date,
+      subject: mSubj.value,
+      score: score,
+      note: document.getElementById("m-note").value.trim()
+    };
+    state.mocks.push(entry);
+    document.getElementById("m-score").value = "";
+    document.getElementById("m-note").value = "";
+    persist();
+  });
+
+  document.getElementById("mock-log").addEventListener("click", function(e){
+    var b = e.target.closest(".kill");
+    if(!b) return;
+    var id = b.getAttribute("data-id");
+    var row = state.mocks.filter(function(m){ return m.id === id; })[0];
+    if(!row) return;
+    if(!confirm("Удалить пробник " + humanFull(row.date) + "?")) return;
+    state.mocks = state.mocks.filter(function(m){ return m.id !== id; });
+    persist();
+  });
+
+  function sparkline(points){
+    if(points.length < 2) return "";
+    var w = 100, h = 26, pad = 3;
+    var min = Math.min.apply(null, points), max = Math.max.apply(null, points);
+    var span = (max - min) || 1;
+    var pts = points.map(function(v, i){
+      var x = pad + i * (w - pad*2) / (points.length - 1);
+      var y = h - pad - ((v - min) / span) * (h - pad*2);
+      return x.toFixed(1) + "," + y.toFixed(1);
+    });
+    var last = pts[pts.length - 1].split(",");
+    return '<svg class="spark" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-hidden="true">'+
+      '<polyline points="'+pts.join(" ")+'" fill="none" stroke="var(--gold)" stroke-width="1.6" '+
+      'stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline>'+
+      '<circle cx="'+last[0]+'" cy="'+last[1]+'" r="2.2" fill="var(--gold)"></circle></svg>';
+  }
+
+  /* ---------- render ---------- */
+  function render(){
+    var today = todayYmd();
+    var todayD = parse(today);
+
+    /* totals */
+    var totals = {inf:0, mat:0, rus:0}, grand = 0, activeDays = 0;
+    Object.keys(state.months).forEach(function(m){
+      var days = state.months[m] || {};
+      Object.keys(days).forEach(function(d){
+        var v = days[d];
+        var t = (+v.inf||0)+(+v.mat||0)+(+v.rus||0);
+        if(t > 0) activeDays++;
+        totals.inf += (+v.inf||0); totals.mat += (+v.mat||0); totals.rus += (+v.rus||0);
+        grand += t;
+      });
+    });
+
+    /* stats */
+    var left = Math.max(0, daysBetween(todayD, examD));
+    document.getElementById("s-days").innerHTML = left + '<span class="stat-unit">' + plural(left,"день","дня","дней") + '</span>';
+    var weeksLeft = Math.round(left / 7);
+    document.getElementById("s-days-sub").textContent =
+      left === 0 ? "экзамен сегодня" : "≈ " + weeksLeft + " " + plural(weeksLeft,"неделя","недели","недель") + " до 29 мая 2028";
+
+    document.getElementById("s-total").innerHTML = fmt(grand) + '<span class="stat-unit">ч</span>';
+    document.getElementById("s-total-sub").textContent =
+      activeDays === 0 ? "пока ничего не записано"
+                       : activeDays + " " + plural(activeDays,"день","дня","дней") + " с занятиями";
+
+    var elapsed = Math.max(1, daysBetween(startD, todayD) + 1);
+    var avg = grand / elapsed;
+    document.getElementById("s-avg").innerHTML = fmt1(avg) + '<span class="stat-unit">ч</span>';
+    document.getElementById("s-avg-sub").textContent =
+      "за " + elapsed + " " + plural(elapsed,"день","дня","дней") + " подготовки";
+
+    /* heatmap paint */
+    var d, key, h;
+    for(var i = 0; i < TOTAL_DAYS; i++){
+      d = addDays(startD, i);
+      key = ymd(d);
+      var c = cellMap[key];
+      if(!c) continue;
+      h = dayTotal(key);
+      c.className = "cell" + level(h) + (key === today ? " today" : "");
+      c.title = humanFull(key) + " — " + (h ? fmt(h) + " ч" : "нет занятий");
+    }
+
+    /* streak: consecutive days with hours, ending today or yesterday */
+    var streak = 0, cursor = today;
+    if(dayTotal(cursor) === 0) cursor = ymd(addDays(todayD, -1));
+    while(cursor >= START && dayTotal(cursor) > 0){
+      streak++;
+      cursor = ymd(addDays(parse(cursor), -1));
+    }
+    document.getElementById("streak-line").textContent =
+      streak === 0 ? "Серии пока нет — запиши сегодняшний день"
+                   : "Серия: " + streak + " " + plural(streak,"день","дня","дней") + " подряд";
+
+    /* subjects */
+    var maxS = Math.max(totals.inf, totals.mat, totals.rus, 1);
+    var sl = document.getElementById("subj-list");
+    sl.innerHTML = "";
+    SUBJECTS.forEach(function(s){
+      var v = totals[s.k];
+      var share = grand ? Math.round(v / grand * 100) : 0;
+      var div = document.createElement("div");
+      div.className = "subj";
+      div.innerHTML =
+        '<div class="row-name">'+s.name+'</div>'+
+        '<div class="subj-num">'+fmt(v)+' ч<small>'+share+'%</small></div>'+
+        '<div class="subj-bar"><i style="width:'+(v/maxS*100)+'%"></i></div>';
+      sl.appendChild(div);
+    });
+
+    /* recent 14 days */
+    var tb = document.getElementById("recent-body");
+    tb.innerHTML = "";
+    for(var j = 0; j < 14; j++){
+      var dd = addDays(todayD, -j);
+      var k = ymd(dd);
+      if(k < START) break;
+      var v = getDay(k);
+      var t = v.inf + v.mat + v.rus;
+      var tr = document.createElement("tr");
+      tr.className = (t === 0 ? "empty " : "") + (k === today ? "is-today" : "");
+      tr.setAttribute("data-d", k);
+      tr.innerHTML =
+        '<td>'+human(k)+'<span class="dow">'+DOW[dd.getDay()]+'</span></td>'+
+        '<td>'+(v.inf ? fmt(v.inf) : "·")+'</td>'+
+        '<td>'+(v.mat ? fmt(v.mat) : "·")+'</td>'+
+        '<td>'+(v.rus ? fmt(v.rus) : "·")+'</td>'+
+        '<td class="tot">'+(t ? fmt(t) : "·")+'</td>';
+      tb.appendChild(tr);
+    }
+
+    /* mock cards */
+    var sorted = state.mocks.slice().sort(function(a,b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    var cards = document.getElementById("mock-cards");
+    cards.innerHTML = "";
+    SUBJECTS.forEach(function(s){
+      var rows = sorted.filter(function(m){ return m.subject === s.k; });
+      var card = document.createElement("div");
+      card.className = "mock-card";
+      if(!rows.length){
+        card.innerHTML = '<h3>'+s.short+'</h3><div class="mock-score none">нет пробников</div>';
+      } else {
+        var last = rows[rows.length - 1];
+        var prev = rows.length > 1 ? rows[rows.length - 2] : null;
+        var dlt = "", cls = "flat";
+        if(prev){
+          var diff = last.score - prev.score;
+          cls = diff > 0 ? "up" : diff < 0 ? "down" : "flat";
+          dlt = (diff > 0 ? "+" : "") + diff + " к прошлому";
+        } else dlt = "первый пробник";
+        card.innerHTML =
+          '<h3>'+s.short+'</h3>'+
+          '<div class="mock-score">'+last.score+'</div>'+
+          '<div class="delta '+cls+'">'+dlt+'</div>'+
+          sparkline(rows.map(function(r){ return r.score; }));
+      }
+      cards.appendChild(card);
+    });
+
+    /* mock log */
+    var log = document.getElementById("mock-log");
+    log.innerHTML = "";
+    if(!sorted.length){
+      log.innerHTML = '<p class="empty-state">Ещё ни одного пробника. Напишешь — добавь сюда балл, дальше будет виден рост.</p>';
+    } else {
+      sorted.slice().reverse().forEach(function(m){
+        var s = SUBJECTS.filter(function(x){ return x.k === m.subject; })[0] || {name:m.subject};
+        var row = document.createElement("div");
+        row.className = "mock-row";
+        row.innerHTML =
+          '<span class="d">'+human(m.date)+' '+String(parse(m.date).getFullYear()).slice(2)+'</span>'+
+          '<span class="s">'+s.name+(m.note ? '<em>'+escapeHtml(m.note)+'</em>' : '')+'</span>'+
+          '<span class="v">'+m.score+'</span>'+
+          '<button class="kill" type="button" data-id="'+m.id+'" aria-label="Удалить запись">×</button>';
+        log.appendChild(row);
+      });
+    }
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  document.getElementById("recent-body").addEventListener("click", function(e){
+    var tr = e.target.closest("tr[data-d]");
+    if(!tr) return;
+    loadIntoForm(tr.getAttribute("data-d"));
+    document.getElementById("in-date").scrollIntoView({behavior:"smooth", block:"center"});
+  });
+
+
+  /* ---------- sync setup UI ---------- */
+  function b64encode(str){
+    return btoa(unescape(encodeURIComponent(str))).replace(/=+$/, "");
+  }
+  function b64decode(str){
+    var pad = str.length % 4 ? new Array(5 - (str.length % 4)).join("=") : "";
+    return decodeURIComponent(escape(atob(str + pad)));
+  }
+  function makeCode(conf){
+    return b64encode(JSON.stringify({u: conf.url, k: conf.key, s: conf.space}));
+  }
+  function readCode(code){
+    try{
+      var o = JSON.parse(b64decode(String(code).trim()));
+      if(o && o.u && o.k && o.s) return {url: o.u, key: o.k, space: o.s};
+    }catch(e){}
+    return null;
+  }
+  function newSpaceId(){
+    var s = "";
+    for(var i = 0; i < 4; i++) s += Math.random().toString(36).slice(2, 10);
+    return s.slice(0, 28);
+  }
+
+  function esc(v){
+    return String(v == null ? "" : v).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function renderSyncUI(){
+    var box = document.getElementById("sync-body");
+    if(!box) return;
+
+    if(sync){
+      box.innerHTML =
+        '<p class="sync-ok">Подключено. Записи уходят в твою базу и подтягиваются на других устройствах.</p>' +
+        '<label class="mini" for="sy-mycode">Код для второго устройства</label>' +
+        '<div class="sync-row">' +
+          '<input type="text" id="sy-mycode" readonly value="' + esc(makeCode(sync)) + '">' +
+          '<button class="btn ghost" type="button" id="sy-copy">Скопировать</button>' +
+        '</div>' +
+        '<p class="hint">Открой ссылку на телефоне, разверни «Синхронизация» и вставь этот код.</p>' +
+        '<div class="sync-row" style="margin-top:12px">' +
+          '<button class="btn ghost" type="button" id="sy-pull">Проверить сейчас</button>' +
+          '<button class="btn ghost" type="button" id="sy-off">Отключить</button>' +
+        '</div>';
+
+      document.getElementById("sy-copy").addEventListener("click", function(){
+        var f = document.getElementById("sy-mycode");
+        f.select();
+        var done = false;
+        try{ done = document.execCommand("copy"); }catch(e){}
+        if(navigator.clipboard && !done){
+          navigator.clipboard.writeText(f.value).then(function(){
+            document.getElementById("sy-copy").textContent = "Скопировано";
+          });
+        } else {
+          document.getElementById("sy-copy").textContent = done ? "Скопировано" : "Скопируй вручную";
+        }
+      });
+      document.getElementById("sy-pull").addEventListener("click", function(){ pullCloud(); });
+      document.getElementById("sy-off").addEventListener("click", function(){
+        if(!confirm("Отключить синхронизацию? Записи в этом браузере останутся.")) return;
+        writeConf(null);
+        cloudState = "idle";
+        renderSyncUI();
+        updateStoreLine();
+      });
+
+    } else {
+      box.innerHTML =
+        '<p class="hint" style="margin-bottom:12px">Пока записи живут только в этом браузере. Подключи базу — и телефон с компьютером будут видеть одно и то же.</p>' +
+        '<label class="mini" for="sy-code">Код с другого устройства</label>' +
+        '<div class="sync-row">' +
+          '<input type="text" id="sy-code" placeholder="вставь код сюда" autocomplete="off">' +
+          '<button class="btn" type="button" id="sy-usecode">Применить</button>' +
+        '</div>' +
+        '<p class="sync-or">или подключить базу впервые</p>' +
+        '<label class="mini" for="sy-url">Ссылка на проект Supabase</label>' +
+        '<input type="text" id="sy-url" placeholder="https://xxxxx.supabase.co" autocomplete="off">' +
+        '<label class="mini" for="sy-key" style="margin-top:8px">Ключ anon public</label>' +
+        '<input type="text" id="sy-key" placeholder="eyJ..." autocomplete="off">' +
+        '<div class="sync-row" style="margin-top:10px">' +
+          '<button class="btn" type="button" id="sy-connect">Подключить</button>' +
+        '</div>' +
+        '<details class="sync-help">' +
+          '<summary>Как завести базу — шесть шагов</summary>' +
+          '<ol>' +
+            '<li>Зарегистрируйся на supabase.com, карта не нужна.</li>' +
+            '<li>Нажми New project. Имя любое, пароль базы сохрани у себя.</li>' +
+            '<li>Слева открой SQL Editor и выполни это:' +
+              '<pre>create table if not exists tracker (\n  space text primary key,\n  data jsonb not null default \'{}\'::jsonb,\n  updated_at timestamptz not null default now()\n);\nalter table tracker enable row level security;\ncreate policy tracker_rw on tracker\n  for all to anon using (true) with check (true);</pre>' +
+            '</li>' +
+            '<li>Открой Project Settings → API.</li>' +
+            '<li>Скопируй оттуда Project URL и ключ anon public в поля выше.</li>' +
+            '<li>Нажми «Подключить», затем перенеси код на телефон.</li>' +
+          '</ol>' +
+        '</details>';
+
+      document.getElementById("sy-usecode").addEventListener("click", function(){
+        var conf = readCode(document.getElementById("sy-code").value);
+        if(!conf){ alert("Код не распознан. Скопируй его целиком."); return; }
+        writeConf(conf);
+        renderSyncUI();
+        diag("подключение по коду");
+        pullCloud();
+      });
+      document.getElementById("sy-connect").addEventListener("click", function(){
+        var url = document.getElementById("sy-url").value.trim();
+        var key = document.getElementById("sy-key").value.trim();
+        if(!/^https?:\/\//.test(url)){ alert("Ссылка должна начинаться с https://"); return; }
+        if(key.length < 20){ alert("Ключ выглядит слишком коротким."); return; }
+        writeConf({url: url, key: key, space: newSpaceId()});
+        renderSyncUI();
+        diag("база подключена");
+        pullCloud();
+      });
+    }
+  }
+
+  /* ---------- backup ---------- */
+  document.getElementById("bk-save").addEventListener("click", function(){
+    var blob = new Blob([JSON.stringify({
+      months: state.months, mocks: state.mocks, updatedAt: state.updatedAt
+    }, null, 2)], {type: "application/json"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "ege-tracker-" + todayYmd() + ".json";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  });
+
+  document.getElementById("bk-load").addEventListener("change", function(e){
+    var file = e.target.files && e.target.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      try{
+        var o = JSON.parse(reader.result);
+        var changed = mergeRemote({months: o.months, mocks: o.mocks}, (+o.updatedAt || 0) + 1);
+        persist();
+        alert(changed ? "Копия загружена." : "В файле нет ничего нового.");
+      }catch(err){
+        alert("Файл не читается: " + ((err && err.message) || err));
+      }
+      e.target.value = "";
+    };
+    reader.readAsText(file);
+  });
+
+  /* ---------- boot ---------- */
+  var t0 = todayYmd();
+  var startToday = t0 < START ? START : (t0 > EXAM ? EXAM : t0);
+  document.getElementById("m-date").value = startToday;
+
+  loadLocal();
+  loadIntoForm(startToday);
+  safeRender();
+  updateStoreLine();
+  renderSyncUI();
+  diag("страница загружена, сегодня " + startToday);
+
+  if(sync){
+    pullCloud();
+    var refresh = function(){ if(sync && !document.hidden) pullCloud(); };
+    window.addEventListener("focus", refresh);
+    document.addEventListener("visibilitychange", refresh);
+  }
+})();
+</script>
+</body>
+</html>
