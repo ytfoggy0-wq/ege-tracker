@@ -611,6 +611,7 @@
   var cloudState = "idle";      /* idle | syncing | ok | error */
   var cloudNote = "";
   var lastSyncAt = null;
+  var lastPullNote = "";
   var pushTimer = null;
 
   function readConf(){
@@ -778,6 +779,7 @@
         }
         var remote = rows[0];
         var changed = mergeRemote(remote.data || {}, Date.parse(remote.updated_at) || 0);
+        lastPullNote = changed ? "получены новые данные" : "";
         diag("облако: получено, " + (changed ? "данные обновлены" : "различий нет"));
         if(changed){
           saveLocal();
@@ -907,7 +909,8 @@
     } else if(cloudState === "syncing"){
       txt = "синхронизирую…";
     } else if(cloudState === "ok"){
-      txt = "синхронизировано" + (lastSyncAt ? " в " + hhmm(lastSyncAt) : "");
+      txt = "синхронизировано" + (lastSyncAt ? " в " + hhmm(lastSyncAt) : "") +
+            (lastPullNote ? " · " + lastPullNote : "");
       cls = "ok";
     } else if(cloudState === "error"){
       txt = "синхронизация не прошла: " + cloudNote.slice(0, 70);
@@ -1328,7 +1331,9 @@
         writeConf(conf);
         renderSyncUI();
         diag("подключение по коду");
-        pullCloud();
+        pullCloud().then(function(){
+          alert("Подключено. Записи с первого устройства подтянутся сюда.");
+        });
       });
       document.getElementById("sy-connect").addEventListener("click", function(){
         var url = document.getElementById("sy-url").value.trim();
@@ -1338,7 +1343,7 @@
         writeConf({url: url, key: key, space: newSpaceId()});
         renderSyncUI();
         diag("база подключена");
-        pullCloud();
+        pullCloud().then(function(){ doPush(); });
       });
     }
   }
@@ -1386,12 +1391,15 @@
   renderSyncUI();
   diag("страница загружена, сегодня " + startToday);
 
-  if(sync){
-    pullCloud();
-    var refresh = function(){ if(sync && !document.hidden) pullCloud(); };
-    window.addEventListener("focus", refresh);
-    document.addEventListener("visibilitychange", refresh);
-  }
+  /* Registered unconditionally: sync is often switched on after the page is
+     already open, and listeners created only at boot would never exist in
+     that tab. Each one re-checks sync itself. */
+  var refresh = function(){ if(sync && !document.hidden) pullCloud(); };
+  window.addEventListener("focus", refresh);
+  document.addEventListener("visibilitychange", refresh);
+  setInterval(refresh, 45000);
+
+  if(sync) pullCloud();
 })();
 </script>
 </body>
